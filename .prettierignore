@@ -5,3 +5,4 @@ coverage
 pnpm-lock.yaml
 LICENSE
 apps/web/public/favicon.ico
+drizzle/meta

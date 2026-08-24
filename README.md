@@ -6,7 +6,7 @@ PantryFlow AI is an open-source full-stack platform designed around a “living 
 controlled orchestration layer; deterministic code remains responsible for nutrition, inventory,
 validation, and persistence.
 
-> Current status: **Roadmap Phase 0 — Foundation complete.** Product and AI capabilities are
+> Current status: **Roadmap Phase 1 — Database complete.** Product and AI capabilities are
 > intentionally not implemented yet.
 
 ## Architecture
@@ -30,6 +30,8 @@ Requirements: Node.js 20.19+, pnpm 10.15, and Docker with Compose.
 corepack enable
 pnpm install
 docker compose up -d
+pnpm db:migrate
+pnpm db:seed
 pnpm dev
 ```
 
@@ -51,11 +53,12 @@ Pull requests run this sequence in GitHub Actions without production credentials
 ## Roadmap
 
 1. Foundation — complete
-2. Database — next: Drizzle, PostgreSQL/pgvector migrations, schema, and seeds
-3. Deterministic Nutrition Engine
+2. Database — complete: Drizzle, PostgreSQL/pgvector migration, schema, and seed
+3. Deterministic Nutrition Engine — next
 4. Pantry, nutrition data, recipes, deterministic planning, living plans, and shopping lists
 5. Functional frontend
 6. Embeddings, RAG, assistant, tools, and bounded agents
 7. Observability, evaluation, Green AI, demo, deployment, and portfolio documentation
 
 See [Phase 0 decisions](docs/phase-0-foundation.md) for scope details.
+See [Database architecture](docs/database.md) for the schema and migration workflow.
