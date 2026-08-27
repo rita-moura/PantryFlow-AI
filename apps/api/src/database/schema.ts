@@ -1,5 +1,7 @@
+import { sql } from 'drizzle-orm';
 import {
   boolean,
+  check,
   date,
   index,
   integer,
@@ -137,9 +139,18 @@ export const pantryItems = pgTable(
     expirationDate: date('expiration_date'),
     openedAt: timestamp('opened_at', { withTimezone: true }),
     minimumStock: quantity('minimum_stock'),
+    deletedAt: timestamp('deleted_at', { withTimezone: true }),
     ...timestamps,
   },
   (table) => [
+    check(
+      'pantry_items_quantity_nonnegative_check',
+      sql`${table.quantity} >= 0`,
+    ),
+    check(
+      'pantry_items_minimum_stock_nonnegative_check',
+      sql`${table.minimumStock} IS NULL OR ${table.minimumStock} >= 0`,
+    ),
     index('pantry_items_user_id_idx').on(table.userId),
     index('pantry_items_expiration_date_idx').on(table.expirationDate),
     index('pantry_items_food_id_idx').on(table.foodId),
