@@ -41,47 +41,6 @@ export class PantryService {
     id: string,
     data: UpdatePantryItemData,
   ): Promise<PantryItemRecord> {
-    const current = await this.repository.findById(userId, id);
-    if (!current) throw new NotFoundException('Pantry item not found.');
-
-    if (
-      data.quantity !== undefined &&
-      (!Number.isFinite(data.quantity) || data.quantity < 0)
-    ) {
-      throw new BadRequestException('Stock quantity cannot be negative.');
-    }
-    if (
-      data.unit !== undefined &&
-      data.unit !== current.unit &&
-      (data.quantity ?? current.quantity) !== 0
-    ) {
-      throw new BadRequestException(
-        'Stock unit can only be changed while quantity is zero.',
-      );
-    }
-
-    if (data.quantity !== undefined && data.quantity !== current.quantity) {
-      if (!data.transactionType || !data.reason?.trim()) {
-        throw new BadRequestException(
-          'transactionType and reason are required when changing stock quantity.',
-        );
-      }
-      const delta = data.quantity - current.quantity;
-      if (
-        data.transactionType === 'CONSUMPTION' ||
-        data.transactionType === 'WASTE'
-      ) {
-        if (delta >= 0) {
-          throw new BadRequestException(
-            `${data.transactionType} must reduce stock quantity.`,
-          );
-        }
-      }
-      if (data.transactionType === 'PURCHASE' && delta <= 0) {
-        throw new BadRequestException('PURCHASE must increase stock quantity.');
-      }
-    }
-
     const updated = await this.repository.update(userId, id, data);
     if (!updated) throw new NotFoundException('Pantry item not found.');
     return updated;

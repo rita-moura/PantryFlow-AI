@@ -1,3 +1,4 @@
+import { validateStockUpdate } from './pantry-stock-validation';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import type { PantryRepository } from './pantry.repository';
 import { PantryService } from './pantry.service';
@@ -57,13 +58,14 @@ class InMemoryPantryRepository implements PantryRepository {
     return Promise.resolve(item);
   }
 
-  update(
+  async update(
     userId: string,
     id: string,
     data: UpdatePantryItemData,
   ): Promise<PantryItemRecord | null> {
     const current = this.items.get(id);
     if (!current || current.userId !== userId) return Promise.resolve(null);
+    validateStockUpdate(current, data);
     const quantity = data.quantity ?? current.quantity;
     if (quantity !== current.quantity && data.transactionType) {
       this.transactions.push({

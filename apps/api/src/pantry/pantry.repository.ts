@@ -1,3 +1,4 @@
+import { validateStockUpdate } from './pantry-stock-validation';
 import { and, eq, isNull } from 'drizzle-orm';
 import { Injectable } from '@nestjs/common';
 import { database } from '../database/connection';
@@ -149,6 +150,10 @@ export class DrizzlePantryRepository implements PantryRepository {
       if (!current) return false;
 
       const currentQuantity = Number(current.quantity);
+      validateStockUpdate(
+        { quantity: currentQuantity, unit: current.unit },
+        data,
+      );
       const nextQuantity = data.quantity ?? currentQuantity;
       const delta = nextQuantity - currentQuantity;
 

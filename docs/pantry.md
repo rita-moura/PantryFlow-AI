@@ -23,3 +23,15 @@ Authentication is not part of Phase 3. Locally, the module uses the seeded profi
 `LOCAL_PROFILE_ID`; it never accepts `userId` from request body or query parameters. In production,
 the API refuses this fallback. A future authentication phase will replace this development-only
 identity provider with the verified Supabase token subject.
+
+## Concurrent updates
+
+Stock-dependent validation runs inside the repository transaction, after `SELECT ... FOR UPDATE`.
+The locked quantity and unit determine whether transaction metadata is required, whether the
+transaction direction is valid, and whether a unit change is allowed. Invalid updates fail before
+any stock or history write. The service does not validate against a separate, potentially stale read.
+
+PATCH quantities are absolute target values. Valid concurrent requests are applied in lock order;
+this endpoint does not implement version-based conflict detection. Repository regression tests
+simulate the stock observed after acquiring the lock and verify rejection before writes, along with
+the history delta for valid changes. These are unit tests, not a live PostgreSQL concurrency test.
