@@ -1,12 +1,19 @@
-<main class="shell">
-  <section class="hero" aria-labelledby="page-title">
-    <p class="eyebrow">PantryFlow AI</p>
-    <h1 id="page-title">A smarter flow from pantry to plate.</h1>
-    <p class="summary">
-      An observable, evaluated, and resource-conscious platform for intelligent meal planning and
-      pantry management.
-    </p>
-    <div class="status" role="status"><span aria-hidden="true"></span>Foundation ready</div>
-  </section>
-</main>
-<router-outlet />
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/dashboard"
+      ><span class="brand-mark">P</span><span>PantryFlow</span></a
+    >
+    <p class="nav-label">Workspace</p>
+    <nav aria-label="Main navigation">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/pantry" routerLinkActive="active">Pantry</a>
+      <a routerLink="/recipes" routerLinkActive="active">Recipes</a>
+      <a routerLink="/meal-plan" routerLinkActive="active">Meal plan</a>
+      <a routerLink="/shopping-list" routerLinkActive="active">Shopping list</a>
+    </nav>
+    <a class="settings-link" routerLink="/settings/goals" routerLinkActive="active"
+      >Settings · Goals</a
+    >
+  </aside>
+  <main class="content"><router-outlet /></main>
+</div>
