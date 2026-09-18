@@ -77,3 +77,47 @@ export interface MealPlanValidation {
   readonly totals: NutritionFacts;
   readonly violations: readonly MealPlanViolation[];
 }
+
+export interface MealPlannerIngredient {
+  readonly foodId: string;
+  readonly quantity: number;
+  readonly unit: string;
+}
+
+export interface MealPlannerPantryItem {
+  readonly foodId: string;
+  readonly quantity: number;
+  readonly unit: string;
+  readonly expirationDate?: string;
+}
+
+export interface MealPlannerCandidate {
+  readonly recipeId: string;
+  readonly nutrition: NutritionFacts;
+  readonly ingredients: readonly MealPlannerIngredient[];
+  readonly prepMinutes: number;
+  readonly preferenceScore?: number;
+}
+
+export interface MealPlannerWeights {
+  readonly nutritionFit?: number;
+  readonly pantryCoverage?: number;
+  readonly expirationUrgency?: number;
+  readonly preferenceScore?: number;
+  readonly prepTime?: number;
+}
+
+export interface ScoredMealCandidate {
+  readonly candidate: MealPlannerCandidate;
+  readonly score: number;
+  readonly nutritionFit: number;
+  readonly pantryCoverage: number;
+  readonly expirationUrgency: number;
+  readonly preferenceScore: number;
+  readonly prepTimeScore: number;
+}
+
+export interface DeterministicMealPlan {
+  readonly meals: readonly ScoredMealCandidate[];
+  readonly validation: MealPlanValidation;
+}
