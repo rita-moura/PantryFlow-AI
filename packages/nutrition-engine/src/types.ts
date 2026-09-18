@@ -121,3 +121,12 @@ export interface DeterministicMealPlan {
   readonly meals: readonly ScoredMealCandidate[];
   readonly validation: MealPlanValidation;
 }
+
+export type LiveMealItemStatus = 'PLANNED' | 'CONSUMED' | 'SKIPPED' | 'REPLACED';
+
+export interface LiveMealPlanItem {
+  readonly id: string;
+  readonly recipeId: string;
+  readonly nutrition: NutritionFacts;
+  readonly status: LiveMealItemStatus;
+}
