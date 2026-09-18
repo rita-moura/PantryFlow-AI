@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "food_nutrients_food_id_uidx" ON "food_nutrients" USING btree ("food_id");

@@ -120,7 +120,10 @@ export const foodNutrients = pgTable(
     fiberG: nutrient('fiber_g').notNull(),
     metadata: jsonb('metadata').notNull().default({}),
   },
-  (table) => [index('food_nutrients_food_id_idx').on(table.foodId)],
+  (table) => [
+    uniqueIndex('food_nutrients_food_id_uidx').on(table.foodId),
+    index('food_nutrients_food_id_idx').on(table.foodId),
+  ],
 );
 
 export const pantryItems = pgTable(
