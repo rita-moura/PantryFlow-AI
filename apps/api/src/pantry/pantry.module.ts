@@ -14,5 +14,6 @@ import { PantryService } from './pantry.service';
     PantryService,
     { provide: PANTRY_REPOSITORY, useClass: DrizzlePantryRepository },
   ],
+  exports: [PantryIdentityService],
 })
 export class PantryModule {}

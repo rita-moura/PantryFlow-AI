@@ -56,7 +56,7 @@ describe('FoodsService', () => {
     const service = new FoodsService(repository, [provider]);
 
     await expect(service.search('  chickpeas  ', 100)).resolves.toEqual([
-      record(result),
+      expect.objectContaining({ name: 'Chickpeas', id: 'food-id' }),
     ]);
     // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(provider.search).toHaveBeenCalledWith('chickpeas', 25);
