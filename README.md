@@ -6,7 +6,7 @@ PantryFlow AI is an open-source full-stack platform designed around a “living 
 controlled orchestration layer; deterministic code remains responsible for nutrition, inventory,
 validation, and persistence.
 
-> Current status: **Roadmap Phase 10 — Embeddings in progress.** Product and AI
+> Current status: **Roadmap Phase 11 — RAG in progress.** Product and AI
 > capabilities are intentionally not implemented yet.
 
 ## Architecture
@@ -62,8 +62,8 @@ Pull requests run this sequence in GitHub Actions without production credentials
 8. Cardápio Vivo — complete: consumption progress and future-only replanning
 9. Shopping List — complete: consolidation and pantry subtraction
 10. Functional frontend — complete: navigable dashboard and core product screens
-11. Embeddings — in progress: Gemini provider, hash cache, and pgvector storage
-12. RAG, assistant, tools, and bounded agents
+11. Embeddings — complete: Gemini provider, hash cache, and pgvector storage
+12. RAG — in progress: hybrid retrieval, filters, context budgets, and grounded generation
 13. Observability, evaluation, Green AI, demo, deployment, and portfolio documentation
 
 See [Phase 0 decisions](docs/phase-0-foundation.md) for scope details.
@@ -77,3 +77,4 @@ See [Live meal plan](docs/live-meal-plan.md) for consumption and future-only rep
 See [Shopping list](docs/shopping-list.md) for ingredient consolidation and stock subtraction.
 See [Functional frontend](docs/frontend.md) for the Angular routes and screens.
 See [Embeddings](docs/embeddings.md) for normalization, caching, Gemini, and vector storage.
+See [RAG](docs/rag.md) for retrieval, filtering, context construction, and grounded responses.
