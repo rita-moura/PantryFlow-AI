@@ -85,7 +85,8 @@
     "moduleNameMapper": {
       "^@pantryflow/nutrition-engine$": "<rootDir>/../../../packages/nutrition-engine/src/index.ts",
       "^\\./(engine|errors|live-plan|nutrition|planner|shopping-list|types|units)\\.js$": "<rootDir>/../../../packages/nutrition-engine/src/$1.ts",
-      "^\\./rag\\.js$": "<rootDir>/../../../packages/ai/src/rag.ts"
+      "^\\./rag\\.js$": "<rootDir>/../../../packages/ai/src/rag.ts",
+      "^\\./assistant\\.js$": "<rootDir>/../../../packages/ai/src/assistant.ts"
     },
     "globals": {
       "ts-jest": {
