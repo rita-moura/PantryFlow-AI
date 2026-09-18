@@ -26,6 +26,7 @@
     "db:studio": "drizzle-kit studio --config=drizzle.config.ts"
   },
   "dependencies": {
+    "@pantryflow/nutrition-engine": "workspace:*",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
@@ -80,6 +81,20 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@pantryflow/nutrition-engine$": "<rootDir>/../../../packages/nutrition-engine/src/index.ts",
+      "^\\./(engine|errors|nutrition|types|units)\\.js$": "<rootDir>/../../../packages/nutrition-engine/src/$1.ts"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsconfig": {
+          "module": "CommonJS",
+          "moduleResolution": "Node",
+          "target": "ES2022",
+          "resolvePackageJsonExports": false
+        }
+      }
+    }
   }
 }
