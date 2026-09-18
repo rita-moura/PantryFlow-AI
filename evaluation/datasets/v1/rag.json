@@ -1,0 +1,11 @@
+{
+  "version": "v1",
+  "cases": [
+    {
+      "id": "protein-breakfast",
+      "retrievedIds": ["recipe-oats-yogurt", "recipe-rice-beans", "knowledge-protein"],
+      "relevantIds": ["recipe-oats-yogurt", "knowledge-protein"],
+      "k": 3
+    }
+  ]
+}
