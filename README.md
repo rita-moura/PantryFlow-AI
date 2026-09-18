@@ -6,7 +6,7 @@ PantryFlow AI is an open-source full-stack platform designed around a “living 
 controlled orchestration layer; deterministic code remains responsible for nutrition, inventory,
 validation, and persistence.
 
-> Current status: **Roadmap Phase 14 — Agentic AI in progress.** Product capabilities are
+> Current status: **Roadmap Phase 15 — Langfuse observability in progress.** Product capabilities are
 > implemented incrementally; agent access is restricted to typed, authenticated tools.
 
 ## Architecture
@@ -52,27 +52,27 @@ Pull requests run this sequence in GitHub Actions without production credentials
 
 ## Roadmap
 
-1. Foundation — complete
-2. Database — complete: Drizzle, PostgreSQL/pgvector migration, schema, and seed
-3. Deterministic Nutrition Engine — complete
-4. Pantry — complete
-5. Foods and Nutrition Data — complete: local search, normalization, and USDA/Open Food Facts adapters
-6. Recipes — complete: persisted ingredients and deterministic nutrition totals
-7. Deterministic Meal Planner — complete: weighted scoring and nutrition validation
-8. Cardápio Vivo — complete: consumption progress and future-only replanning
-9. Shopping List — complete: consolidation and pantry subtraction
-10. Functional frontend — complete: navigable dashboard and core product screens
-11. Embeddings — complete: Gemini provider, hash cache, and pgvector storage
-12. RAG — complete: hybrid retrieval, filters, context budgets, and grounded generation
-13. AI Assistant — complete: deterministic request routing for CODE, RAG, and AGENT
-14. AI Tools — complete: typed, validated, authenticated tool registry
-15. Agentic AI — in progress: bounded meal-planning orchestration
-16. Observability
-17. Evaluation
-18. Green AI optimization
-19. Guest demo
-20. Deployment
-21. Portfolio documentation
+0. Foundation — complete
+1. Database — complete: Drizzle, PostgreSQL/pgvector migration, schema, and seed
+2. Deterministic Nutrition Engine — complete
+3. Pantry — complete
+4. Foods and Nutrition Data — complete: local search, normalization, and USDA/Open Food Facts adapters
+5. Recipes — complete: persisted ingredients and deterministic nutrition totals
+6. Deterministic Meal Planner — complete: weighted scoring and nutrition validation
+7. Cardápio Vivo — complete: consumption progress and future-only replanning
+8. Shopping List — complete: consolidation and pantry subtraction
+9. Functional frontend — complete: navigable dashboard and core product screens
+10. Embeddings — complete: Gemini provider, hash cache, and pgvector storage
+11. RAG — complete: hybrid retrieval, filters, context budgets, and grounded generation
+12. AI Assistant — complete: deterministic request routing for CODE, RAG, and AGENT
+13. AI Tools — complete: typed, validated, authenticated tool registry
+14. Agentic AI — complete: bounded meal-planning orchestration
+15. Langfuse observability — in progress: sanitized traces and ingestion
+16. Evaluation
+17. Green AI optimization
+18. Guest demo
+19. Deployment
+20. Portfolio documentation
 
 See [Phase 0 decisions](docs/phase-0-foundation.md) for scope details.
 See [Database architecture](docs/database.md) for the schema and migration workflow.
@@ -89,3 +89,4 @@ See [RAG](docs/rag.md) for retrieval, filtering, context construction, and groun
 See [AI Assistant](docs/assistant.md) for request routing and typed handlers.
 See [AI Tools](docs/ai-tools.md) for the authenticated tool registry and contracts.
 See [Agentic AI](docs/agentic-ai.md) for bounded meal-planning orchestration.
+See [Langfuse observability](docs/langfuse.md) for trace events, sanitization, and ingestion.

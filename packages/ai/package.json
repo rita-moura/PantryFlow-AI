@@ -40,11 +40,13 @@
       "^\\.\\./src/assistant\\.js$": "<rootDir>/src/assistant.ts",
       "^\\.\\./src/tools\\.js$": "<rootDir>/src/tools.ts",
       "^\\.\\./src/agent\\.js$": "<rootDir>/src/agent.ts",
+      "^\\.\\./src/observability\\.js$": "<rootDir>/src/observability.ts",
       "^\\./embeddings\\.js$": "<rootDir>/src/embeddings.ts",
       "^\\./rag\\.js$": "<rootDir>/src/rag.ts",
       "^\\./assistant\\.js$": "<rootDir>/src/assistant.ts",
       "^\\./tools\\.js$": "<rootDir>/src/tools.ts",
-      "^\\./agent\\.js$": "<rootDir>/src/agent.ts"
+      "^\\./agent\\.js$": "<rootDir>/src/agent.ts",
+      "^\\./observability\\.js$": "<rootDir>/src/observability.ts"
     },
     "globals": {
       "ts-jest": {

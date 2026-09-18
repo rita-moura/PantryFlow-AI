@@ -1,5 +1,6 @@
 import { MealPlanningAgent } from '../src/agent.js';
 import { createToolRegistry, type ToolHandlers } from '../src/tools.js';
+import { InMemoryTraceSink } from '../src/observability.js';
 
 function handlers(): ToolHandlers {
   return {
@@ -25,9 +26,11 @@ const proposal = {
 describe('MealPlanningAgent', () => {
   it('orchestrates bounded planning and persists only after validation', async () => {
     const implementation = handlers();
+    const traceSink = new InMemoryTraceSink();
     const agent = new MealPlanningAgent({
       tools: createToolRegistry(implementation),
       composePlan: jest.fn().mockResolvedValue(proposal),
+      traceSink,
     });
 
     const result = await agent.run({
@@ -44,6 +47,9 @@ describe('MealPlanningAgent', () => {
       { userId: 'user-1' },
     );
     expect(implementation.generateShoppingList).toHaveBeenCalled();
+    expect(traceSink.events.map((event) => event.type)).toEqual(
+      expect.arrayContaining(['request', 'agent_step', 'tool_call', 'validation', 'response']),
+    );
   });
 
   it('does not persist an invalid plan', async () => {
