@@ -6,7 +6,7 @@ PantryFlow AI is an open-source full-stack platform designed around a “living 
 controlled orchestration layer; deterministic code remains responsible for nutrition, inventory,
 validation, and persistence.
 
-> Current status: **Roadmap Phase 13 — AI Tools in progress.** Product capabilities are
+> Current status: **Roadmap Phase 14 — Agentic AI in progress.** Product capabilities are
 > implemented incrementally; agent access is restricted to typed, authenticated tools.
 
 ## Architecture
@@ -65,8 +65,8 @@ Pull requests run this sequence in GitHub Actions without production credentials
 11. Embeddings — complete: Gemini provider, hash cache, and pgvector storage
 12. RAG — complete: hybrid retrieval, filters, context budgets, and grounded generation
 13. AI Assistant — complete: deterministic request routing for CODE, RAG, and AGENT
-14. AI Tools — in progress: typed, validated, authenticated tool registry
-15. Agentic AI
+14. AI Tools — complete: typed, validated, authenticated tool registry
+15. Agentic AI — in progress: bounded meal-planning orchestration
 16. Observability
 17. Evaluation
 18. Green AI optimization
@@ -88,3 +88,4 @@ See [Embeddings](docs/embeddings.md) for normalization, caching, Gemini, and vec
 See [RAG](docs/rag.md) for retrieval, filtering, context construction, and grounded responses.
 See [AI Assistant](docs/assistant.md) for request routing and typed handlers.
 See [AI Tools](docs/ai-tools.md) for the authenticated tool registry and contracts.
+See [Agentic AI](docs/agentic-ai.md) for bounded meal-planning orchestration.
