@@ -38,9 +38,11 @@
       "^\\.\\./src/embeddings\\.js$": "<rootDir>/src/embeddings.ts",
       "^\\.\\./src/rag\\.js$": "<rootDir>/src/rag.ts",
       "^\\.\\./src/assistant\\.js$": "<rootDir>/src/assistant.ts",
+      "^\\.\\./src/tools\\.js$": "<rootDir>/src/tools.ts",
       "^\\./embeddings\\.js$": "<rootDir>/src/embeddings.ts",
       "^\\./rag\\.js$": "<rootDir>/src/rag.ts",
-      "^\\./assistant\\.js$": "<rootDir>/src/assistant.ts"
+      "^\\./assistant\\.js$": "<rootDir>/src/assistant.ts",
+      "^\\./tools\\.js$": "<rootDir>/src/tools.ts"
     },
     "globals": {
       "ts-jest": {
