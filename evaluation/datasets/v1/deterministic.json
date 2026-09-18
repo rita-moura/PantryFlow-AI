@@ -1,0 +1,21 @@
+{
+  "version": "v1",
+  "cases": [
+    {
+      "id": "nutrition-balanced-day",
+      "expectedNutrition": {
+        "calories": 2000,
+        "protein": 110,
+        "carbs": 240,
+        "fat": 65,
+        "fiber": 30
+      },
+      "actualNutrition": { "calories": 2000, "protein": 110, "carbs": 240, "fat": 65, "fiber": 30 },
+      "inventoryQuantities": [1.5, 0.25],
+      "expectedInventoryValid": true,
+      "inventoryValid": true,
+      "expectedMealValid": true,
+      "mealValid": true
+    }
+  ]
+}

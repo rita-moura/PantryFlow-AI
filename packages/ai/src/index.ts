@@ -6,3 +6,4 @@ export * from './assistant.js';
 export * from './tools.js';
 export * from './agent.js';
 export * from './observability.js';
+export * from './evaluation.js';

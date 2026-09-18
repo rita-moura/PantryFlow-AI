@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "cases": [
+    {
+      "id": "grounded-substitution",
+      "relevance": 1,
+      "groundedness": 1,
+      "toolCorrectness": 1,
+      "instructionFollowing": 0.9,
+      "minimumScore": 0.7
+    }
+  ]
+}
