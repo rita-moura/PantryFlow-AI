@@ -3,5 +3,6 @@ export * from './errors.js';
 export * from './nutrition.js';
 export * from './planner.js';
 export * from './live-plan.js';
+export * from './shopping-list.js';
 export * from './types.js';
 export * from './units.js';
