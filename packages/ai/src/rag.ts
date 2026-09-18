@@ -1,4 +1,5 @@
 import type { EmbeddingProvider } from './embeddings.js';
+import { newTraceId, recordTrace, type TraceSink } from './observability.js';
 
 export interface RagDocument {
   readonly id: string;
@@ -90,6 +91,7 @@ export class RagPipeline {
     private readonly embedder: EmbeddingProvider,
     private readonly store: RagSearchStore,
     private readonly answerProvider: GroundedAnswerProvider,
+    private readonly traceSink?: TraceSink,
   ) {}
 
   async answer(
@@ -100,17 +102,58 @@ export class RagPipeline {
       readonly filters?: RagSearchFilters;
     } = {},
   ): Promise<RagAnswer> {
+    const traceId = newTraceId();
+    const startedAt = Date.now();
     const query = normalizeRagQuery(question);
     if (!query) throw new Error('Question cannot be empty.');
     const topK = Math.min(Math.max(options.topK ?? 5, 1), 20);
+    const embeddingStartedAt = Date.now();
     const vector = await this.embedder.embed(query);
+    await recordTrace(this.traceSink, {
+      traceId,
+      type: 'embedding',
+      timestamp: new Date().toISOString(),
+      latencyMs: Date.now() - embeddingStartedAt,
+      model: this.embedder.model,
+      success: true,
+      metadata: { dimensions: vector.length },
+    });
+    const retrievalStartedAt = Date.now();
     const [vectorResults, keywordResults] = await Promise.all([
       this.store.vectorSearch(vector, topK, options.filters),
       this.store.keywordSearch(query, topK, options.filters),
     ]);
+    await recordTrace(this.traceSink, {
+      traceId,
+      type: 'vector_search',
+      timestamp: new Date().toISOString(),
+      latencyMs: Date.now() - retrievalStartedAt,
+      retrievedItems: vectorResults.length + keywordResults.length,
+      success: true,
+      metadata: { topK, hasFilters: Boolean(options.filters) },
+    });
     const sources = mergeResults(vectorResults, keywordResults, topK);
     const context = buildRagContext(sources, options.contextBudget ?? 6_000);
+    const generationStartedAt = Date.now();
     const answer = await this.answerProvider.generate(query, context);
+    await recordTrace(this.traceSink, {
+      traceId,
+      type: 'llm_generation',
+      timestamp: new Date().toISOString(),
+      latencyMs: Date.now() - generationStartedAt,
+      retrievedItems: sources.length,
+      success: true,
+      metadata: { contextCharacters: context.length, answerCharacters: answer.length },
+    });
+    await recordTrace(this.traceSink, {
+      traceId,
+      type: 'response',
+      timestamp: new Date().toISOString(),
+      latencyMs: Date.now() - startedAt,
+      retrievedItems: sources.length,
+      success: true,
+      metadata: { sourceCount: sources.length },
+    });
     return { answer, sources, context };
   }
 }

@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { newTraceId, recordTrace, type TraceSink } from './observability.js';
 
 export const DEFAULT_EMBEDDING_MODEL = 'gemini-embedding-001';
 export const EMBEDDING_DIMENSIONS = 768;
@@ -46,15 +47,34 @@ export async function embedWithCache(
   content: string,
   provider: EmbeddingProvider,
   cache: EmbeddingCache,
+  traceSink?: TraceSink,
 ): Promise<CachedEmbedding> {
   const normalized = normalizeEmbeddingContent(content);
   if (!normalized) throw new Error('Embedding content cannot be empty.');
   const contentHash = hashEmbeddingContent(normalized);
   const cached = cache.get(contentHash, provider.model);
-  if (cached) return { contentHash, model: provider.model, vector: cached, cacheHit: true };
+  if (cached) {
+    await recordTrace(traceSink, {
+      traceId: newTraceId(),
+      type: 'embedding',
+      timestamp: new Date().toISOString(),
+      model: provider.model,
+      success: true,
+      metadata: { cacheHit: true, dimensions: cached.length },
+    });
+    return { contentHash, model: provider.model, vector: cached, cacheHit: true };
+  }
   const vector = await provider.embed(normalized);
   assertVector(vector);
   cache.set(contentHash, provider.model, vector);
+  await recordTrace(traceSink, {
+    traceId: newTraceId(),
+    type: 'embedding',
+    timestamp: new Date().toISOString(),
+    model: provider.model,
+    success: true,
+    metadata: { cacheHit: false, dimensions: vector.length },
+  });
   return { contentHash, model: provider.model, vector, cacheHit: false };
 }
 

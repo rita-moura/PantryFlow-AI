@@ -1,4 +1,5 @@
 import type { RagPipeline } from './rag.js';
+import { newTraceId, recordTrace, type TraceSink } from './observability.js';
 
 export type AssistantRoute = 'CODE' | 'RAG' | 'AGENT';
 
@@ -44,12 +45,39 @@ export function routeAssistantRequest(question: string): AssistantDecision {
 }
 
 export class AssistantService {
-  constructor(private readonly handlers: AssistantHandlers) {}
+  constructor(
+    private readonly handlers: AssistantHandlers,
+    private readonly traceSink?: TraceSink,
+  ) {}
 
   async answer(question: string): Promise<AssistantResponse> {
+    const traceId = newTraceId();
+    const startedAt = Date.now();
+    await recordTrace(this.traceSink, {
+      traceId,
+      type: 'request',
+      timestamp: new Date().toISOString(),
+      success: true,
+      metadata: { questionLength: question.length },
+    });
     const decision = routeAssistantRequest(question);
+    await recordTrace(this.traceSink, {
+      traceId,
+      type: 'routing',
+      timestamp: new Date().toISOString(),
+      success: true,
+      metadata: { route: decision.route },
+    });
     const answer =
       await this.handlers[decision.route.toLowerCase() as keyof AssistantHandlers](question);
+    await recordTrace(this.traceSink, {
+      traceId,
+      type: 'response',
+      timestamp: new Date().toISOString(),
+      latencyMs: Date.now() - startedAt,
+      success: true,
+      metadata: { route: decision.route, answerLength: answer.length },
+    });
     return { route: decision.route, answer };
   }
 }

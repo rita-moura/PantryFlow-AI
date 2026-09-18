@@ -5,6 +5,7 @@ import type {
   ToolRegistry,
   ToolResultMap,
 } from './tools.js';
+import { newTraceId, recordTrace, type TraceSink } from './observability.js';
 
 export interface MealPlanningAgentConfig {
   readonly maxSteps?: number;
@@ -55,6 +56,7 @@ export interface MealPlanningAgentDependencies {
     observations: Omit<MealPlanningObservations, 'mealNutrition'>,
   ) => Promise<MealPlanProposal>;
   readonly config?: MealPlanningAgentConfig;
+  readonly traceSink?: TraceSink;
 }
 
 const DEFAULTS: Required<MealPlanningAgentConfig> = {
@@ -101,14 +103,30 @@ export class MealPlanningAgent {
     if (!request.planId.trim()) throw new Error('planId is required.');
 
     const startedAt = Date.now();
+    const traceId = newTraceId();
     let steps = 0;
     let toolCalls = 0;
     let retries = 0;
     let estimatedTokens = estimateTokens(request);
     const context: ToolContext = { userId: request.userId };
+    await recordTrace(this.dependencies.traceSink, {
+      traceId,
+      type: 'request',
+      timestamp: new Date().toISOString(),
+      success: true,
+      metadata: { goalLength: request.goal.length },
+    });
     const step = (): void => {
       steps += 1;
       if (steps > this.config.maxSteps) throw new Error('Agent step limit exceeded.');
+      void recordTrace(this.dependencies.traceSink, {
+        traceId,
+        type: 'agent_step',
+        timestamp: new Date().toISOString(),
+        agentStep: steps,
+        success: true,
+        metadata: { maxSteps: this.config.maxSteps },
+      });
     };
     const call = async <K extends keyof ToolInputMap>(
       name: K,
@@ -138,6 +156,15 @@ export class MealPlanningAgent {
           estimatedTokens += estimateTokens(result);
           if (estimatedTokens > this.config.tokenBudget)
             throw new Error('Agent token budget exceeded.');
+          await recordTrace(this.dependencies.traceSink, {
+            traceId,
+            type: 'tool_call',
+            timestamp: new Date().toISOString(),
+            toolName: name,
+            agentStep: steps,
+            success: true,
+            metadata: { attempt, toolCalls },
+          });
           return result as ToolResultMap[K];
         } catch (error) {
           lastError = error;
@@ -168,7 +195,23 @@ export class MealPlanningAgent {
     step();
     const validation = await call('validateMealPlan', { planId: proposal.planId });
     const observations = { ...baseObservations, mealNutrition };
+    await recordTrace(this.dependencies.traceSink, {
+      traceId,
+      type: 'validation',
+      timestamp: new Date().toISOString(),
+      agentStep: steps,
+      success: validation.valid,
+      metadata: { valid: validation.valid },
+    });
     if (!validation.valid) {
+      await recordTrace(this.dependencies.traceSink, {
+        traceId,
+        type: 'response',
+        timestamp: new Date().toISOString(),
+        latencyMs: Date.now() - startedAt,
+        success: false,
+        metadata: { status: 'rejected', toolCalls, retries },
+      });
       return {
         status: 'rejected',
         proposal,
@@ -183,6 +226,14 @@ export class MealPlanningAgent {
     step();
     await call('updateMealPlan', { planId: proposal.planId, changes: proposal.changes });
     const shoppingList = await call('generateShoppingList', { planId: proposal.planId });
+    await recordTrace(this.dependencies.traceSink, {
+      traceId,
+      type: 'response',
+      timestamp: new Date().toISOString(),
+      latencyMs: Date.now() - startedAt,
+      success: true,
+      metadata: { status: 'completed', toolCalls, retries },
+    });
     return {
       status: 'completed',
       proposal,
