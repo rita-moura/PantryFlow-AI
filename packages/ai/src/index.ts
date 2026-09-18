@@ -2,3 +2,4 @@
 export const AI_FIRST_ROADMAP_PHASE = 10 as const;
 export * from './embeddings.js';
 export * from './rag.js';
+export * from './assistant.js';

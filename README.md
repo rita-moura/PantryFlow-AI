@@ -6,7 +6,7 @@ PantryFlow AI is an open-source full-stack platform designed around a “living 
 controlled orchestration layer; deterministic code remains responsible for nutrition, inventory,
 validation, and persistence.
 
-> Current status: **Roadmap Phase 11 — RAG in progress.** Product and AI
+> Current status: **Roadmap Phase 12 — AI Assistant in progress.** Product and AI
 > capabilities are intentionally not implemented yet.
 
 ## Architecture
@@ -63,8 +63,9 @@ Pull requests run this sequence in GitHub Actions without production credentials
 9. Shopping List — complete: consolidation and pantry subtraction
 10. Functional frontend — complete: navigable dashboard and core product screens
 11. Embeddings — complete: Gemini provider, hash cache, and pgvector storage
-12. RAG — in progress: hybrid retrieval, filters, context budgets, and grounded generation
-13. Observability, evaluation, Green AI, demo, deployment, and portfolio documentation
+12. RAG — complete: hybrid retrieval, filters, context budgets, and grounded generation
+13. AI Assistant — in progress: deterministic request routing for CODE, RAG, and AGENT
+14. Observability, evaluation, Green AI, demo, deployment, and portfolio documentation
 
 See [Phase 0 decisions](docs/phase-0-foundation.md) for scope details.
 See [Database architecture](docs/database.md) for the schema and migration workflow.
@@ -78,3 +79,4 @@ See [Shopping list](docs/shopping-list.md) for ingredient consolidation and stoc
 See [Functional frontend](docs/frontend.md) for the Angular routes and screens.
 See [Embeddings](docs/embeddings.md) for normalization, caching, Gemini, and vector storage.
 See [RAG](docs/rag.md) for retrieval, filtering, context construction, and grounded responses.
+See [AI Assistant](docs/assistant.md) for request routing and typed handlers.
