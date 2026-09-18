@@ -130,3 +130,16 @@ export interface LiveMealPlanItem {
   readonly nutrition: NutritionFacts;
   readonly status: LiveMealItemStatus;
 }
+
+export interface ShoppingIngredient {
+  readonly foodId: string;
+  readonly quantity: number;
+  readonly unit: string;
+  readonly foodName?: string;
+}
+
+export interface ShoppingListItem extends ShoppingIngredient {
+  readonly neededQuantity: number;
+  readonly pantryQuantity: number;
+  readonly reason: 'MISSING' | 'INSUFFICIENT_STOCK';
+}

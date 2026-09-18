@@ -84,7 +84,7 @@
     "testEnvironment": "node",
     "moduleNameMapper": {
       "^@pantryflow/nutrition-engine$": "<rootDir>/../../../packages/nutrition-engine/src/index.ts",
-      "^\\./(engine|errors|live-plan|nutrition|planner|types|units)\\.js$": "<rootDir>/../../../packages/nutrition-engine/src/$1.ts"
+      "^\\./(engine|errors|live-plan|nutrition|planner|shopping-list|types|units)\\.js$": "<rootDir>/../../../packages/nutrition-engine/src/$1.ts"
     },
     "globals": {
       "ts-jest": {
