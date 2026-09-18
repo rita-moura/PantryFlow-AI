@@ -6,8 +6,8 @@ PantryFlow AI is an open-source full-stack platform designed around a “living 
 controlled orchestration layer; deterministic code remains responsible for nutrition, inventory,
 validation, and persistence.
 
-> Current status: **Roadmap Phase 3 — Pantry complete.** Product and AI capabilities are
-> intentionally not implemented yet.
+> Current status: **Roadmap Phase 4 — Foods and Nutrition Data in progress.** Product and AI
+> capabilities are intentionally not implemented yet.
 
 ## Architecture
 
@@ -56,12 +56,14 @@ Pull requests run this sequence in GitHub Actions without production credentials
 2. Database — complete: Drizzle, PostgreSQL/pgvector migration, schema, and seed
 3. Deterministic Nutrition Engine — complete
 4. Pantry — complete
-5. Foods and Nutrition Data — next; followed by recipes, deterministic planning, living plans, and shopping lists
-6. Functional frontend
-7. Embeddings, RAG, assistant, tools, and bounded agents
-8. Observability, evaluation, Green AI, demo, deployment, and portfolio documentation
+5. Foods and Nutrition Data — in progress: local search, normalization, and USDA/Open Food Facts adapters
+6. Recipes — next; followed by deterministic planning, living plans, and shopping lists
+7. Functional frontend
+8. Embeddings, RAG, assistant, tools, and bounded agents
+9. Observability, evaluation, Green AI, demo, deployment, and portfolio documentation
 
 See [Phase 0 decisions](docs/phase-0-foundation.md) for scope details.
 See [Database architecture](docs/database.md) for the schema and migration workflow.
 See [Nutrition Engine](docs/nutrition-engine.md) for deterministic calculation and validation rules.
 See [Pantry](docs/pantry.md) for stock invariants and transaction history.
+See [Foods and nutrition data](docs/foods.md) for provider normalization and local caching.
