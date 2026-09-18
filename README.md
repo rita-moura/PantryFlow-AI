@@ -6,7 +6,7 @@ PantryFlow AI is an open-source full-stack platform designed around a “living 
 controlled orchestration layer; deterministic code remains responsible for nutrition, inventory,
 validation, and persistence.
 
-> Current status: **Roadmap Phase 9 — Functional Frontend in progress.** Product and AI
+> Current status: **Roadmap Phase 10 — Embeddings in progress.** Product and AI
 > capabilities are intentionally not implemented yet.
 
 ## Architecture
@@ -61,9 +61,10 @@ Pull requests run this sequence in GitHub Actions without production credentials
 7. Deterministic Meal Planner — complete: weighted scoring and nutrition validation
 8. Cardápio Vivo — complete: consumption progress and future-only replanning
 9. Shopping List — complete: consolidation and pantry subtraction
-10. Functional frontend — in progress: navigable dashboard and core product screens
-11. Embeddings, RAG, assistant, tools, and bounded agents
-12. Observability, evaluation, Green AI, demo, deployment, and portfolio documentation
+10. Functional frontend — complete: navigable dashboard and core product screens
+11. Embeddings — in progress: Gemini provider, hash cache, and pgvector storage
+12. RAG, assistant, tools, and bounded agents
+13. Observability, evaluation, Green AI, demo, deployment, and portfolio documentation
 
 See [Phase 0 decisions](docs/phase-0-foundation.md) for scope details.
 See [Database architecture](docs/database.md) for the schema and migration workflow.
@@ -75,3 +76,4 @@ See [Deterministic meal planner](docs/meal-planner.md) for scoring and validatio
 See [Live meal plan](docs/live-meal-plan.md) for consumption and future-only replanning.
 See [Shopping list](docs/shopping-list.md) for ingredient consolidation and stock subtraction.
 See [Functional frontend](docs/frontend.md) for the Angular routes and screens.
+See [Embeddings](docs/embeddings.md) for normalization, caching, Gemini, and vector storage.

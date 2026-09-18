@@ -212,6 +212,24 @@ export const recipes = pgTable(
   ],
 );
 
+export const knowledgeChunks = pgTable(
+  'knowledge_chunks',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    source: text('source').notNull(),
+    sourceId: text('source_id'),
+    content: text('content').notNull(),
+    contentHash: text('content_hash').notNull(),
+    embedding: vector('embedding', { dimensions: 768 }),
+    embeddingModel: text('embedding_model'),
+    ...timestamps,
+  },
+  (table) => [
+    uniqueIndex('knowledge_chunks_content_hash_uidx').on(table.contentHash),
+    index('knowledge_chunks_source_idx').on(table.source),
+  ],
+);
+
 export const recipeIngredients = pgTable(
   'recipe_ingredients',
   {
