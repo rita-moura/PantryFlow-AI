@@ -6,7 +6,7 @@ PantryFlow AI is an open-source full-stack platform designed around a “living 
 controlled orchestration layer; deterministic code remains responsible for nutrition, inventory,
 validation, and persistence.
 
-> Current status: **Roadmap Phase 19 — Deploy in progress.** Product capabilities are
+> Current status: **Roadmap Phase 20 — Portfolio documentation in progress.** Product capabilities are
 > implemented incrementally; agent access is restricted to typed, authenticated tools.
 
 ## Architecture
@@ -71,8 +71,31 @@ Pull requests run this sequence in GitHub Actions without production credentials
 16. Evaluation — complete: deterministic, RAG, and AI metrics
 17. Green AI optimization — complete: resource metrics and bounded execution
 18. Guest demo — complete: seeded pantry-first experience with usage limits
-19. Deployment — in progress: Vercel, Render, Supabase, Gemini, and Langfuse configuration
-20. Portfolio documentation
+19. Deployment — complete: Vercel, Render, Supabase, Gemini, and Langfuse configuration
+20. Portfolio documentation — in progress: architecture, ADRs, evaluation, and technical decisions
+
+## Problem
+
+Meal planning becomes hard to maintain when nutrition arithmetic, pantry inventory, expiring food,
+shopping, and personal goals live in separate tools. Users need a living plan that adapts to what
+they own while keeping nutrition and inventory decisions reliable.
+
+## Product
+
+PantryFlow combines pantry management, recipes, deterministic nutrition, meal planning, consumption
+progress, shopping lists, grounded retrieval, and bounded agent workflows. The guest demo lets a
+visitor try a pantry-first plan without an account or an AI call.
+
+## Screenshots
+
+See [screenshots and routes](docs/screenshots.md). The deployed frontend is intentionally configured
+separately from server credentials; hosted screenshots should be captured from the deployment.
+
+## Technical decisions
+
+The main decisions are recorded as ADRs: [PostgreSQL/pgvector](docs/adr/001-postgres-pgvector.md),
+[deterministic nutrition](docs/adr/002-deterministic-nutrition-engine.md), [agent tools](docs/adr/003-agent-tools.md),
+[request routing](docs/adr/004-request-router.md), and [Green AI](docs/adr/005-green-ai.md).
 
 See [Phase 0 decisions](docs/phase-0-foundation.md) for scope details.
 See [Database architecture](docs/database.md) for the schema and migration workflow.
@@ -94,3 +117,4 @@ See [Evaluation](docs/evaluation.md) for datasets and quality metrics.
 See [Green AI](docs/green-ai.md) for resource measurements and optimization controls.
 See [Guest Demo](docs/guest-demo.md) for the public demo flow, seed, and limits.
 See [Deployment](docs/deployment.md) for provider configuration and environment variables.
+See [Architecture](docs/architecture.md) for system boundaries and integrations.
