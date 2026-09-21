@@ -6,7 +6,7 @@ PantryFlow AI is an open-source full-stack platform designed around a “living 
 controlled orchestration layer; deterministic code remains responsible for nutrition, inventory,
 validation, and persistence.
 
-> Current status: **Roadmap Phase 20 — Portfolio documentation in progress.** Product capabilities are
+> Current status: **Roadmap complete through Phase 20 — Portfolio documentation.** Product capabilities are
 > implemented incrementally; agent access is restricted to typed, authenticated tools.
 
 ## Architecture
@@ -72,7 +72,7 @@ Pull requests run this sequence in GitHub Actions without production credentials
 17. Green AI optimization — complete: resource metrics and bounded execution
 18. Guest demo — complete: seeded pantry-first experience with usage limits
 19. Deployment — complete: Vercel, Render, Supabase, Gemini, and Langfuse configuration
-20. Portfolio documentation — in progress: architecture, ADRs, evaluation, and technical decisions
+20. Portfolio documentation — complete: architecture, ADRs, evaluation, and technical decisions
 
 ## Problem
 
